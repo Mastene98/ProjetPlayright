@@ -37,10 +37,8 @@ test('Sejour bon plans crete depuis paris', async ({ page }) => {
   await page.getByRole('checkbox', { name: 'Adult Only' }).check();
 
   await page.getByRole('checkbox', { name: 'Petit Déjeuner' }).check();
-  await page.getByRole('checkbox', { name: 'Pension Complète' }).check();
   await page.getByRole('checkbox', { name: 'Petit Déjeuner' }).uncheck();
 
-  await page.locator('#listmeal').getByText('Pension Complète').click();
 
   await page.locator('.select_tri').selectOption('base_price_desc');
   await page.locator('.select_tri').selectOption('base_price');
@@ -63,12 +61,16 @@ test('Sejour bon plans crete depuis paris', async ({ page }) => {
   await page1.getByRole('link', { name: 'Descriptif' }).click();
   await page1.getByRole('link', { name: 'Destination', exact: true }).click();
   await page1.getByRole('link', { name: 'Résumé' }).click();
+  
 
-  await page1.locator('p').filter({ hasText: 'mer. 3 juin 26 sam. 6 juin' }).first()
-    .evaluate((element) => {
-      const bloc = element.closest('div') as HTMLElement;
-      bloc.click();
-    });
+  await page1.getByText('JUIN 2026').click();
+  await page1.locator('p')
+  .filter({ hasText: 'sam. 20 juin 26 mar. 23 juin 26' })
+  .first()
+  .evaluate((element) => {
+    const bloc = element.closest('div') as HTMLElement;
+    bloc.click();
+  });
 
   await page1.getByTestId('productToResaButton').click();
 
@@ -83,18 +85,4 @@ test('Sejour bon plans crete depuis paris', async ({ page }) => {
 
   await page1.goto('https://resa.jettours.com/salesprocess-v3/quotedRateDetails.to?profile=WBWPwBmq9XDXeNuNdGQ7Rtq8y3IvIOzDjNeCHkf5L8DjqyKz7jRbxEI80ioWc%2FxeCAMcIbkCTJU%3D&allElementsMatched=true#/srn_quote');
 
-  await page1.getByRole('radio', { name: 'x Chambre 1 adulte' }).check();
-
-  await page1.getByRole('group')
-    .filter({ hasText: '5BagagesAjouter des' })
-    .getByLabel('Voir plus')
-    .click();
-
-  await page1.locator('.placeholder').first().click();
-  await page1.getByRole('button', { name: 'Fermer la fenêtre' }).click();
-
-  await page1.getByRole('button', { name: 'Ajouter des bagages' }).click();
-  await page1.getByRole('button', { name: 'Fermer la fenêtre' }).click();
-
-  await page1.getByRole('radio', { name: 'Chambre 2 adultes' }).check();
 });

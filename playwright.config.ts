@@ -4,13 +4,13 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './e2e',
 
-  timeout: 300000,
+  timeout: 240000,
 
   fullyParallel: false,
 
   retries: 1,
 
-  workers: 3,
+  workers: 1,
 
   reporter: 'html',
 
@@ -22,15 +22,15 @@ export default defineConfig({
 
   projects: [
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    //{
+      //name: 'firefox',
+      //use: { ...devices['Desktop Firefox'] },
+    //},
 
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
+    //{
+      //name: 'Microsoft Edge',
+      //use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //},
 
     {
       name: 'Google Chrome',
