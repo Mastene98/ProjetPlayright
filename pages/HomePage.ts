@@ -27,9 +27,7 @@ export class HomePage {
     }
   }
 
-  async destinations() {
-    await this.page.locator('button').filter({ hasText: 'Destinations' }).click();
-  }
+
 
   async saisirDestination(destination: string) {
     await this.page.getByRole('combobox', { name: 'Search' }).fill(destination);
