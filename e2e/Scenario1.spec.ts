@@ -18,7 +18,10 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await homePage.accepterCookies();
   await expect(page.getByTestId('modalPrivacyAccept')).toBeHidden();
 
-  await page.locator('button').filter({ hasText: 'Destinations' }).click();
+  const destinations = page.getByText('Destinations', { exact: true });
+
+  await destinations.waitFor({ state: 'visible', timeout: 30000 });
+  await destinations.click();
 
 
   await page.getByRole('combobox', { name: 'Search' }).click();
