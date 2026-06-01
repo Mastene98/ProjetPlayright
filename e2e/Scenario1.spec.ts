@@ -18,7 +18,7 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await homePage.accepterCookies();
   await expect(page.getByTestId('modalPrivacyAccept')).toBeHidden();
 
-  await homePage.destinations();
+  await page.locator('button').filter({ hasText: 'Destinations' }).click();
 
   await page.getByRole('combobox', { name: 'Search' }).click();
   await homePage.saisirDestination('espa');

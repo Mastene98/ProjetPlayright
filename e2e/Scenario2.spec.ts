@@ -9,7 +9,7 @@ test('Sejour bon plans crete depuis paris', async ({ page }) => {
   await homePage.ouvrir();
   await homePage.refuserCookies();
 
-  await page.getByRole('button', { name: 'Les bons plans ' }).click();
+  await page.getByRole('button', { name: /Les bons plans/i }).click();
   await page.getByTestId('menu').getByRole('link', { name: 'Crète' }).click();
 
   await page.locator('button').filter({ hasText: 'Ville de départ' }).click();
