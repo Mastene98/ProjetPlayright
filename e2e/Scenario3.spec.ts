@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from '../pages/HomePage';
+
 
 test('test', async ({ page }) => {
-  await page.goto('https://www.jettours.com/');
-  await page.getByTestId('modalPrivacyAccept').click();
+  const homePage = new HomePage(page);
+  await homePage.ouvrir();
+  await homePage.accepterCookies();
   await page.locator('button').filter({ hasText: 'Destinations' }).click();
   await page.locator('#bs-select-1-4').click();
   await page.locator('button').filter({ hasText: 'Ville de départ' }).click();
