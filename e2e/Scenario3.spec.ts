@@ -6,7 +6,14 @@ test('test', async ({ page }) => {
   const homePage = new HomePage(page);
   await homePage.ouvrir();
   await homePage.accepterCookies();
-  await page.locator('button').filter({ hasText: 'Destinations' }).click();
+
+
+  const destinationButton = page.locator('button[data-id="desti"]');
+
+  await destinationButton.waitFor({ state: 'visible', timeout: 30000 });
+  await destinationButton.click();
+
+
   await page.locator('#bs-select-1-4').click();
   await page.locator('button').filter({ hasText: 'Ville de départ' }).click();
   await page.locator('#bs-select-2-8').click();
