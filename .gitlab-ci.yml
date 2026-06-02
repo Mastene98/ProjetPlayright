@@ -31,7 +31,7 @@ playwright_tests:
   dependencies:
     - install_dependencies
   script:
-    - npx playwright test e2e/Scenario3.spec.ts
+    - npx playwright test 
   artifacts:
     when: always
     paths:

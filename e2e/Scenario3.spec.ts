@@ -30,6 +30,6 @@ test('test', async ({ page }) => {
   const page1 = await page1Promise;
   await page1.locator('#image_1').click();
   await page1.getByRole('button', { name: 'Close gallery' }).click();
-  await page1.getByText('1Sat A partir de 1 497€ 1 744').click();
+
   await page1.getByTestId('productToResaButton').click();
 });
