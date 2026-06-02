@@ -13,9 +13,12 @@ export class HomePage {
 
   async accepterCookies() {
     const boutonCookies = this.page.getByTestId('modalPrivacyAccept');
-
-    if (await boutonCookies.isVisible().catch(() => false)) {
+    try {
+      await boutonCookies.waitFor({ state: 'visible', timeout: 10000 });
       await boutonCookies.click();
+      await boutonCookies.waitFor({ state: 'hidden', timeout: 10000 }); // ← attendre fermeture
+    } catch {
+      // pas de modal, on continue
     }
   }
 
