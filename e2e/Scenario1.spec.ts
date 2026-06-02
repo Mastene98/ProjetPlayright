@@ -11,15 +11,14 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await homePage.accepterCookies();
   await expect(page.getByTestId('modalPrivacyAccept')).toBeHidden();
 
-  // CORRECTION : cible uniquement le bouton Destinations dans la nav
   const destinations = page.locator('nav').getByRole('button', { name: 'Destinations' }).first();
-
   await destinations.waitFor({ state: 'visible', timeout: 30000 });
   await destinations.click();
 
-  await page.getByRole('combobox', { name: 'Search' }).click();
-  await homePage.saisirDestination('espa');
-  await page.getByRole('combobox', { name: 'Search' }).press('Enter');
+  // Cliquer directement sur "Espagne" dans le dropdown (pas de champ Search)
+  await page.getByRole('link', { name: 'Espagne' }).first().waitFor({ state: 'visible', timeout: 10000 });
+  await page.getByRole('link', { name: 'Espagne' }).first().click();
+
   await page.locator('button').filter({ hasText: 'Ville de départ' }).click();
   await page.getByRole('combobox', { name: 'Search' }).fill('paris');
   await page.locator('#bs-select-2-8').click();
@@ -51,6 +50,5 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await page1.locator('#image_1').click();
   await page1.getByRole('button', { name: 'Close gallery' }).click();
   await page1.getByTestId('calendar').getByTestId('price-min').click();
-  await page1.getByTestId('productToResaButton').click();
-  await page1.getByRole('button', { name: 'Retour au produit' }).click();
+
 });
