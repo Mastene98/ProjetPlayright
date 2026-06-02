@@ -10,7 +10,7 @@ export default defineConfig({
 
   retries: 1,
 
-  workers: 1,
+  workers: 3,
 
   reporter: 'html',
 

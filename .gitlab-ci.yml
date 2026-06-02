@@ -19,6 +19,7 @@ install_dependencies:
   image: mcr.microsoft.com/playwright:v1.49.0-noble
   script:
     - npm ci
+    - npx playwright install chrome
   artifacts:
     paths:
       - node_modules/
