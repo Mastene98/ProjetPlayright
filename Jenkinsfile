@@ -29,7 +29,7 @@ pipeline {
 
         stage('Exécuter les tests Playwright') {
             steps {
-                bat 'npx playwright test e2e/Scenario3.spec.ts'
+                bat 'npx playwright test'
             }
         }
     }
