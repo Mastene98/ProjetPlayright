@@ -1,13 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
 
-
-
-// Premier scenatio de test, parfois y'a des erreurs alors avec le mode debug aucun soucis 
-// ou bien en augmantant le retry 
-// et en vrai le probleme c est juste le temps d exec qui est par defaut a 30 sec 
-// en l'ayyant augmenté a 120 sec on peut eviter les erreurs de timeout
-
 test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
 
   const homePage = new HomePage(page);
@@ -18,11 +11,11 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await homePage.accepterCookies();
   await expect(page.getByTestId('modalPrivacyAccept')).toBeHidden();
 
-  const destinations = page.getByText('Destinations', { exact: true });
+  // CORRECTION : cible uniquement le bouton Destinations dans la nav
+  const destinations = page.locator('nav').getByRole('button', { name: 'Destinations' }).first();
 
   await destinations.waitFor({ state: 'visible', timeout: 30000 });
   await destinations.click();
-
 
   await page.getByRole('combobox', { name: 'Search' }).click();
   await homePage.saisirDestination('espa');
@@ -51,7 +44,7 @@ test('Rechercher un sejour en Espagne depuis Paris', async ({ page }) => {
   await page.locator('.select_tri').selectOption('base_price_desc');
   const page1Promise = page.waitForEvent('popup');
 
-  await expect( page.locator('a').filter({ hasText: 'Htop Pineda Palace 4* sup' })).toBeVisible();
+  await expect(page.locator('a').filter({ hasText: 'Htop Pineda Palace 4* sup' })).toBeVisible();
   await page.locator('a').filter({ hasText: 'Htop Pineda Palace 4* sup' }).click();
 
   const page1 = await page1Promise;
