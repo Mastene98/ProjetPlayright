@@ -23,7 +23,7 @@ jobs:
       run: npx playwright install chrome msedge
 
     - name: Run Playwright tests
-      run: npx playwright test e2e/Scenario2.spec.ts
+      run: npx playwright test 
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
